@@ -1,7 +1,7 @@
 from fastapi import APIRouter
 
 from models import AddDocument,RetrieveDocument
-from helpers import create_documents
+from helpers import create_documents,retrieve_documents
 
 
 job_router = APIRouter(prefix="/job")
@@ -14,4 +14,4 @@ async def add_job_document(document: AddDocument):
 
 @job_router.post("/retrieve")
 async def retrieve_job_document(query: RetrieveDocument):
-    return {"message": "Retrieve Document Endpoint"}
+    return retrieve_documents(query=query.query, top_k=query.top_k)
