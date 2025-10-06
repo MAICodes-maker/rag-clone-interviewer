@@ -137,7 +137,6 @@ def retrieve_documents(query:str,top_k:int):
         - Do not invent details outside the provided context.  
         """
 
-        print("prompt",prompt)
         ai_msg = llm.invoke(prompt)
         return ai_msg.content
     
