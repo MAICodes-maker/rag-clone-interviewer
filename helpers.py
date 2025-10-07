@@ -121,6 +121,10 @@ def retrieve_documents(query:str,top_k:int):
         vector_store = FAISS.load_local("faiss_index", embeddings, allow_dangerous_deserialization=True)
         retriever = vector_store.as_retriever(search_kwargs={"k": top_k})
         sources = retriever.invoke(query)
+
+        if not sources:
+            raise HTTPException(status_code=404, detail="No relevant documents found.")
+        
         llm=ChatGroq(
             model="deepseek-r1-distill-llama-70b",
         )
